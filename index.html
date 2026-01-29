@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>My PWA</title>
+  <meta name="description" content="A Progressive Web App" />
+
+  <!-- PWA essentials -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0d6efd" />
+
+  <!-- iOS support -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="My PWA" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+  <!-- Fallback icon -->
+  <link rel="icon" href="/icons/icon-192.png" />
+
+</head>
+<body>
+  <h1>Hello PWA 👋</h1>
+  <p>This app works offline and can be installed.</p>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.error('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
