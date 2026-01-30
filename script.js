@@ -104,10 +104,15 @@ function render() {
     durationDisplay.textContent = remainingSegSec;
 
     if (remainingSegSec !== prevRemainingSegSec) {
-        if (remainingSegSec <= 0) {
+        if (remainingSegSec <= 2) { // heads-up alert
+            vibrate();
+        }
+
+        if (remainingSegSec == 0) {
             switch (phase.textContent) { 
                 case "Auto":
                 case "Delay":
+                case "End Game":
                     break;
 
                 case "Transition Shift":
@@ -138,7 +143,6 @@ function render() {
                     swapAlliance();
                     break;
             }
-            vibrate();
         }
 
         prevRemainingSegSec = remainingSegSec; // store new value

@@ -31,17 +31,10 @@ function swapAlliance() {
     switch (getCookie(alliance)) {
         case "red":
             document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
-            document.getElementById("alliance_color").textContent = "Red"
             break;
 
         case "blue":
             document.getElementById("body").style.backgroundColor = "var(--b-alliance)";
-            document.getElementById("alliance_color").textContent = "Blue"
-            break;
-
-        default:
-            document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
-            document.getElementById("alliance_color").textContent = "Red"
             break;
     }
 }
@@ -57,3 +50,18 @@ toggle.addEventListener('click', () => {
     AutoWinner = !AutoWinner; // toggle state
     AutoWinner ? WinAutoStat.textContent = "Yes" : WinAutoStat.textContent = "No"; // update button text
 });
+
+function chooseAlliance() {
+    swapAlliance();
+    alliance_color = getCookie(alliance);
+
+    switch (alliance_color) {
+        case "red":
+            document.getElementById("alliance_color").textContent = "Red";
+            break;
+
+        case "blue":
+            document.getElementById("alliance_color").textContent = "Blue";
+            break;
+    }
+}
