@@ -22,9 +22,22 @@
 
         <link rel="stylesheet" href="style.css">
         <script defer src="script.js"></script>
+        <script defer src="alliance.js"></script>
     </head>
     <body id="body" onload="init()">
-        <div id="timers"></div>
+
+        <h1 id="time"></h1>
+        <p>Match Time</p>
+
+        <h1 id="duration"></h1>
+        <p>Seconds</p>
+
+        <h1 id="phase"></h1>
+        <p>Match Period</p>
+
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="reset()">Reset</button>
 
 
 
@@ -35,72 +48,5 @@
         <button onclick="swapAlliance()">
             Swap Alliance
         </button>
-
-        <script>
-            const alliance = "alliance";
-            const cookieDomain = "rbgk.github.io/frc-timer";
-            const expireTime = 365;
-
-            function getCookie(key) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${key}=`);
-                if (parts.length === 2) return parts.pop().split(';').shift();
-            }
-
-            // Setting a cookie
-            function setCookie(key, value, days, domain) {
-                let expires = "";
-                if (days) {
-                    const date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = "; expires=" + date.toUTCString();
-                }
-                const domainStr = domain ? "; domain=" + domain : "";
-                document.cookie = `${key}=${value || ""}${expires}; path=/${domainStr}`;
-            }
-
-            function init() {
-                setCookie(alliance, "red");
-                document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
-            }
-
-            function swapAlliance() {
-                getCookie(alliance) === "red" ? setCookie(alliance, "blue") : setCookie(alliance, "red");
-
-                switch (getCookie(alliance)) {
-                    case "red":
-                        document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
-                        break;
-
-                    case "blue":
-                        document.getElementById("body").style.backgroundColor = "var(--b-alliance)";
-                        break;
-
-                    default:
-                        document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
-                        break;
-                }
-            }
-
-            function vibrate() {
-                window.navigator.vibrate([250, 50, 250, 50, 500]);
-            }
-        </script>
-
-
-
-
-        <!-- <script>
-            if ("serviceWorker" in navigator) {
-                window.addEventListener("load", () => {
-                    navigator.serviceWorker
-                        .register("sw.js")
-                        .then((reg) => console.log("SW registered:", reg.scope))
-                        .catch((err) =>
-                            console.error("SW registration failed:", err),
-                        );
-                });
-            }
-        </script> -->
     </body>
 </html>
