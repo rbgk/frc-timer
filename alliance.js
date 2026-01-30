@@ -31,14 +31,17 @@ function swapAlliance() {
     switch (getCookie(alliance)) {
         case "red":
             document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
+            document.getElementById("alliance_color").textContent = "Red"
             break;
 
         case "blue":
             document.getElementById("body").style.backgroundColor = "var(--b-alliance)";
+            document.getElementById("alliance_color").textContent = "Blue"
             break;
 
         default:
             document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
+            document.getElementById("alliance_color").textContent = "Red"
             break;
     }
 }
@@ -52,5 +55,5 @@ const WinAutoStat = document.getElementById('WinAuto');
 let AutoWinner = false;
 toggle.addEventListener('click', () => {
     AutoWinner = !AutoWinner; // toggle state
-    WinAutoStat.textContent = AutoWinner; // update button text
+    AutoWinner ? WinAutoStat.textContent = "Yes" : WinAutoStat.textContent = "No"; // update button text
 });

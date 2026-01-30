@@ -184,5 +184,6 @@ function reset() {
 
     requestAnimationFrame(render);
 
-    WinAutoStat.textContent = "";
+    AutoWinner = false;
+    WinAutoStat.textContent = "No";
 }
