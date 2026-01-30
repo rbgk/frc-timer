@@ -42,3 +42,7 @@ function swapAlliance() {
             break;
     }
 }
+
+function vibrate() {
+    window.navigator.vibrate([250, 50, 250, 50, 500]);
+}
