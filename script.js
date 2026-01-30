@@ -105,7 +105,39 @@ function render() {
 
     if (remainingSegSec !== prevRemainingSegSec) {
         if (remainingSegSec <= 0) {
-            swapAlliance();
+            switch (phase.textContent) { 
+                case "Auto":
+                case "Delay":
+                    break;
+
+                case "Transition Shift":
+                    if (!AutoWinner) {
+                        // if we are red and blue won auto, then we do not change colors
+                        // if we are blue and red won auto, then we do not change colors
+                        break;
+                    } else if (AutoWinner) {
+                        // if we are red and won auto, we change color
+                        // if we are blue and won auto, we change color
+                        swapAlliance();
+                        break;
+                    }
+
+                case "Shift 4":
+                    if (!AutoWinner) {
+                        // if we are red and blue won auto, we change color
+                        // if we are blue and red won auto, we change color
+                        swapAlliance();
+                        break;
+                    } else if (AutoWinner) {
+                        // if we are red and won auto, then we do not change colors
+                        // if we are blue and won auto, then we do not change colors
+                        break;
+                    }
+
+                default:
+                    swapAlliance();
+                    break;
+            }
             vibrate();
         }
 
@@ -152,4 +184,5 @@ function reset() {
 
     requestAnimationFrame(render);
 
+    WinAutoStat.textContent = "";
 }

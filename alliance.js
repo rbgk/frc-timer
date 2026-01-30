@@ -46,3 +46,11 @@ function swapAlliance() {
 function vibrate() {
     window.navigator.vibrate([250, 50, 250, 50, 500]);
 }
+
+const toggle = document.getElementById('toggle');
+const WinAutoStat = document.getElementById('WinAuto');
+let AutoWinner = false;
+toggle.addEventListener('click', () => {
+    AutoWinner = !AutoWinner; // toggle state
+    WinAutoStat.textContent = AutoWinner; // update button text
+});
