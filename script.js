@@ -98,7 +98,6 @@ function render() {
     }
 
     display.textContent = formatTimeMs(current.displayMs);
-    phase.textContent = current.name;
     const seg = segments.find(s => s.name === current.name);
     const elapsedInSegment = elapsed - seg.cumulativeStart;
     const remainingSegSec = Math.floor((seg.duration - elapsedInSegment) / 1000);
@@ -110,9 +109,15 @@ function render() {
         }
 
         if (remainingSegSec == 0) {
-            switch (phase.textContent) { 
+            switch (phase.textContent) {
+                // force inject the upcoming phase even though technically not there yet (deviation of 1 second, the 0th second)
+                // this is for a visual seamless transition, as the colors already change
                 case "Auto":
+                    phase.textContent = "Delay";
+                    break;
                 case "Delay":
+                    phase.textContent = "Transition Shift";
+                    break;
                 case "End Game":
                     break;
 
@@ -120,28 +125,52 @@ function render() {
                     if (!AutoWinner) {
                         // if we are red and blue won auto, then we do not change colors
                         // if we are blue and red won auto, then we do not change colors
+                        phase.textContent = "Shift 1";
                         break;
                     } else if (AutoWinner) {
                         // if we are red and won auto, we change color
                         // if we are blue and won auto, we change color
                         swapAlliance();
+                        phase.textContent = "Shift 1";
                         break;
                     }
+
+                case "Shift 1":
+                    swapAlliance();
+                    phase.textContent = "Shift 2";
+                    break;
+
+                case "Shift 2":
+                    swapAlliance();
+                    phase.textContent = "Shift 3";
+                    break;
+
+                case "Shift 3":
+                    swapAlliance();
+                    phase.textContent = "Shift 4";
+                    break;
 
                 case "Shift 4":
                     if (!AutoWinner) {
                         // if we are red and blue won auto, we change color
                         // if we are blue and red won auto, we change color
                         swapAlliance();
+                        console.log(phase.innerText + remainingSegSec);
+                        phase.textContent = "End Game";
+                        console.log(phase.innerText + remainingSegSec);
                         break;
                     } else if (AutoWinner) {
                         // if we are red and won auto, then we do not change colors
                         // if we are blue and won auto, then we do not change colors
+                        console.log(phase.innerText + remainingSegSec);
+                        phase.textContent = "End Game";
+                        console.log(phase.innerText + remainingSegSec);
                         break;
                     }
 
                 default:
-                    swapAlliance();
+                    // extensive testing says we never hit this... good luck with debug if we ever get here
+                    alert("Something broke:\nEither you borked something or this is an unknown edge case");
                     break;
             }
         }
