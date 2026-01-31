@@ -1,11 +1,12 @@
 const rawSegments = [
     { name: "Auto",               start: "0:20", end: "0:00" },
+    { name: "Delay",              start: "0:03", end: "0:00" },
     { name: "Transition Shift",   start: "2:20", end: "2:10" },
     { name: "Shift 1",            start: "2:10", end: "1:45" },
     { name: "Shift 2",            start: "1:45", end: "1:20" },
     { name: "Shift 3",            start: "1:20", end: "0:55" },
     { name: "Shift 4",            start: "0:55", end: "0:30" },
-    { name: "End Game",           start: "0:10", end: "0:00" }
+    { name: "End Game",           start: "0:30", end: "0:00" }
 ];
 
 const parseTime = str => {
