@@ -131,23 +131,23 @@ function render() {
                     } else if (AutoWinner) {
                         // if we are red and won auto, we change color
                         // if we are blue and won auto, we change color
-                        swapAlliance();
+                        switchHub();
                         phase.textContent = "Shift 1";
                         break;
                     }
 
                 case "Shift 1":
-                    swapAlliance();
+                    switchHub();
                     phase.textContent = "Shift 2";
                     break;
 
                 case "Shift 2":
-                    swapAlliance();
+                    switchHub();
                     phase.textContent = "Shift 3";
                     break;
 
                 case "Shift 3":
-                    swapAlliance();
+                    switchHub();
                     phase.textContent = "Shift 4";
                     break;
 
@@ -155,17 +155,13 @@ function render() {
                     if (!AutoWinner) {
                         // if we are red and blue won auto, we change color
                         // if we are blue and red won auto, we change color
-                        swapAlliance();
-                        console.log(phase.innerText + remainingSegSec);
+                        switchHub();
                         phase.textContent = "End Game";
-                        console.log(phase.innerText + remainingSegSec);
                         break;
                     } else if (AutoWinner) {
                         // if we are red and won auto, then we do not change colors
                         // if we are blue and won auto, then we do not change colors
-                        console.log(phase.innerText + remainingSegSec);
                         phase.textContent = "End Game";
-                        console.log(phase.innerText + remainingSegSec);
                         break;
                     }
 
@@ -223,4 +219,5 @@ function reset() {
     AutoWinner = false;
     WinAutoNo.style.display = "inline-block", WinAutoYes.style.display = "none";
     killFlash();
+    chooseAlliance(); // edge case: resyncs colors if user reset during a match period that already ran switchHub(); also flips between alliances for JIC compulsion
 }

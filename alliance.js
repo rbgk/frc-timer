@@ -110,16 +110,16 @@ function killFlash() {
 }
 
 function chooseAlliance() {
-    swapAlliance();
+    switchHub();
     alliance_color = getCookie(alliance);
 
     switch (alliance_color) {
         case "red":
-            document.getElementById("alliance_color").textContent = "Red";
+            document.getElementById("alliance_color").textContent = "red";
             break;
 
         case "blue":
-            document.getElementById("alliance_color").textContent = "Blue";
+            document.getElementById("alliance_color").textContent = "blue";
             break;
     }
 }

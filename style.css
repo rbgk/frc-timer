@@ -101,7 +101,7 @@ button:hover {
 #Start_btn, #Pause_btn, #WinAutoToggle, #AllianceToggle {
     height: 100px;
     aspect-ratio: 2;
-    outline: 2px solid white;
+    border: 2px solid white;
 }
 
 #info {
@@ -143,6 +143,10 @@ button:hover {
     .controls button {
         max-width: 150px;
     }
+
+    button:hover {
+        opacity: 100%;
+    }
 }
 
 @media (pointer: coarse) and (orientation: landscape) {
@@ -156,5 +160,9 @@ button:hover {
         grid-template-columns: repeat(2, 1fr);
         grid-auto-flow: row;
         gap: 10px
+    }
+
+    button:hover {
+        opacity: 100%;
     }
 }
