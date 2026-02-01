@@ -23,9 +23,25 @@ function setCookie(key, value, days, domain) {
 function init() {
     setCookie(alliance, "red");
     document.getElementById("body").style.backgroundColor = "var(--r-alliance)";
+
+    let flashSetting = localStorage.getItem("flashSetting");
+    if (flashSetting === null) {
+        localStorage.setItem("flashSetting", "off");
+        flashOff.style.display = "inline-block";
+        flashOn.style.display = "none";
+
+    } else if (flashSetting == "true") {
+        flashOff.style.display = "none";
+        flashOn.style.display = "inline-block";
+
+    } else if (flashSetting == "off") {
+        flashOff.style.display = "inline-block";
+        flashOn.style.display = "none";
+
+    }
 }
 
-function swapAlliance() {
+function switchHub() {
     getCookie(alliance) === "red" ? setCookie(alliance, "blue") : setCookie(alliance, "red");
 
     switch (getCookie(alliance)) {
@@ -40,11 +56,13 @@ function swapAlliance() {
 }
 
 function vibrate() {
-    window.navigator.vibrate([250, 50, 250, 50, 500]);
+    let pause = 50;
+    let pulse = 250;
+    let one = 1000;
+    window.navigator.vibrate([one, pause, one, pause, pulse, pause, pulse, pause, pulse, pause, pulse]);
 }
 
 const WinAutoToggle = document.getElementById('WinAutoToggle');
-const WinAutoStat = document.getElementById('WinAuto');
 const WinAutoNo = document.getElementById('WinAutoNo');
 const WinAutoYes = document.getElementById('WinAutoYes');
 let AutoWinner = false;
@@ -52,6 +70,44 @@ WinAutoToggle.addEventListener('click', () => {
     AutoWinner = !AutoWinner; // toggle state
     AutoWinner ? (WinAutoYes.style.display = "inline-block", WinAutoNo.style.display = "none" ): (WinAutoNo.style.display = "inline-block", WinAutoYes.style.display = "none"); // update button text
 });
+
+const flashToggle = document.getElementById('flashToggle');
+const flashOff = document.getElementById('flashOff');
+const flashOn = document.getElementById('flashOn');
+let flashSetting = localStorage.getItem("flashSetting") === "true";
+flashToggle.addEventListener('click', () => {
+    flashSetting = !flashSetting; // toggle state
+    flashSetting ? (flashOn.style.display = "inline-block", flashOff.style.display = "none",  localStorage.setItem("flashSetting", true)) : (flashOff.style.display = "inline-block", flashOn.style.display = "none", localStorage.setItem("flashSetting", "off")); // update localStorage and toggle
+    flashSetting ? flash() : killFlash();
+});
+
+let flashInterval;
+function flash() {
+    const brightFlashPerSecond = 4; // Count visual flash per second; 4 default
+    const totalFlashDurationSec = 5; // Visual flash for how many seconds; 5 default
+    if (flashSetting == true) { // Only flash if user enabled
+        const flashDiv = document.getElementById("flashDiv");
+        flashDiv.style.display = "block";
+        flashDiv.style.backgroundColor = "var(--brights)";
+        let flashActive = false;
+
+        flashInterval = setInterval(() => {
+            flashDiv.style.backgroundColor = flashActive ? 'var(--brights)' : 'var(--black)';
+            flashActive = !flashActive;
+        }, 1000/brightFlashPerSecond);
+
+        setTimeout(() => {
+            flashDiv.style.display = "none";
+            clearInterval(flashInterval);
+        }, 1000*totalFlashDurationSec);
+    }
+}
+
+function killFlash() {
+    flashDiv.style.display = "none";
+    clearInterval(flashInterval);
+
+}
 
 function chooseAlliance() {
     swapAlliance();

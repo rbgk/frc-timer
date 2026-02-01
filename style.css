@@ -34,6 +34,8 @@
     --r-alliance: #ED1C24;
     --b-alliance: #0066B3;
     --white: #ffffff;
+    --black: #000000;
+    --brights: #2cff00;
 }
 
 body {
@@ -112,6 +114,28 @@ button:hover {
 
 #info p {
     margin-top: -20px;
+}
+
+#flashToggle {
+    position: fixed;
+    bottom: 5px;
+    left: 5px;
+}
+
+#flashOff, #flashOn {
+    background-color: transparent;
+    display: none;
+}
+
+#flashDiv {
+    position: fixed;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 60vw;
+    height: 15vh;
+    background-color: var(--brights);
+    display: none;
 }
 
 
